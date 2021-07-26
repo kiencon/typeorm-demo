@@ -1,16 +1,16 @@
 import { Connection } from 'typeorm';
-import getConnection from './getConnection';
+import getConnection from './typeOrmConnection';
 
 const migrate = async (): Promise<void> => {
   try {
-    console.log('dirname', __dirname);
     const cnn: Connection = await getConnection();
     console.log(cnn.migrations);
     const result = await cnn.runMigrations();
     console.log('migration ok', result);
+    process.exit(0);
   } catch (error) {
     Promise.reject(error);
   }
 };
 
-migrate().then(() => process.exit(0));
+migrate();

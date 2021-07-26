@@ -1,6 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Connection, EntityManager, QueryRunner, Repository } from 'typeorm';
-import getConnection from '../getConnection';
+import getConnection from '../typeOrmConnection';
 
 export default class UnitOfWork {
   private queryRunner: QueryRunner;
@@ -10,7 +9,6 @@ export default class UnitOfWork {
   static connectionDB: Connection;
 
   private async init(): Promise<void> {
-    if (UnitOfWork.connectionDB) return;
     UnitOfWork.connectionDB = await getConnection();
     this.queryRunner = UnitOfWork.connectionDB.createQueryRunner();
   }
@@ -22,11 +20,6 @@ export default class UnitOfWork {
   async startTransaction(): Promise<void> {
     await this.init();
     await this.queryRunner.startTransaction();
-    this.setTransactionManager();
-  }
-
-  async start(): Promise<void> {
-    await this.init();
     this.setTransactionManager();
   }
 
@@ -46,6 +39,6 @@ export default class UnitOfWork {
     if (!this.transactionManager) {
       throw new Error('Unit of work is not started. Call the start() method');
     }
-    return this.queryRunner.manager.getRepository(IEntity);
+    return this.transactionManager.getRepository(IEntity);
   }
 }

@@ -1,9 +1,12 @@
-import { Repository } from 'typeorm';
-import getConnection from '../getConnection';
+import { Connection, Repository } from 'typeorm';
+import getConnection from '../typeOrmConnection';
 
-async function getRepository<T>(IEntity: new () => T): Promise<Repository<T>> {
-  const cnn = await getConnection();
-  return cnn.getRepository(IEntity);
+async function getRepository<T>(
+  ICustomRepository: new () => Repository<T>
+): Promise<Repository<T>> {
+  const connectionDB: Connection = await getConnection();
+  const { manager } = connectionDB.createQueryRunner();
+  return manager.getCustomRepository(ICustomRepository);
 }
 
 export default getRepository;
