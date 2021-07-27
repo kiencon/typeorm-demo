@@ -1,5 +1,5 @@
 {
-   "name": "infrastructure-project",
+   "name": "infrastructure",
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
    "devDependencies": {
@@ -36,5 +36,8 @@
       "build": "npm run clean && tsc -d",
       "migration": "npm run build && typeorm migration:generate -n "
    },
-   "main": "./build"
+   "main": "./build",
+   "license": "UNLICENSED",
+   "private": "true",
+   "author": "vietson1610@gmail.com"
 }
