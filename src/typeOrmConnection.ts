@@ -23,7 +23,7 @@ const createConnection = (): Promise<Connection> =>
   });
 
 // eslint-disable-next-line consistent-return
-const tryGetConnection = (): Connection | undefined => {
+const tryGetConnection = (): Connection => {
   try {
     return _getConnection();
     // eslint-disable-next-line no-empty
@@ -33,7 +33,7 @@ const tryGetConnection = (): Connection | undefined => {
 const getConnection = async (): Promise<Connection> => {
   const action = `getConnection-${new Date().getTime().toString()}`;
   console.time(action);
-  let cnn;
+  let cnn: Connection;
   try {
     cnn = await createConnection();
   } catch (e) {

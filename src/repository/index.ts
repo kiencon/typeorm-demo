@@ -1,5 +1,5 @@
 import DetergentFormulaRepository from './DetergentFormulaRepository';
 import DetergentRepository from './DetergentRepository';
-import getRepository from './getRepository';
+import QueryableDatabase from './QueryableDatabase';
 
-export { DetergentFormulaRepository, DetergentRepository, getRepository };
+export { DetergentFormulaRepository, DetergentRepository, QueryableDatabase };

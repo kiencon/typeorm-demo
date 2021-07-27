@@ -1,7 +1,7 @@
 import { Connection, EntityManager, QueryRunner, Repository } from 'typeorm';
 import getConnection from '../typeOrmConnection';
 
-export default class UnitOfWork {
+class UnitOfWork {
   private queryRunner: QueryRunner;
 
   private transactionManager: EntityManager;
@@ -41,4 +41,13 @@ export default class UnitOfWork {
     }
     return this.transactionManager.getRepository(IEntity);
   }
+
+  getCustomRepository<T>(
+    ICustomRepository: new () => Repository<T>
+  ): Repository<T> {
+    return this.transactionManager.getCustomRepository(ICustomRepository);
+  }
 }
+
+// eslint-disable-next-line import/prefer-default-export
+export { UnitOfWork };
